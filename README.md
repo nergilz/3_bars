@@ -4,6 +4,15 @@ This script processes the json-file with the data and finds the largest bar,
 the smallest and the nearest bar, from the received coordinates
 ---
 
+### How to use
+
+The list of Moscow bars can be downloaded in JSON format:
+1. register on the site and get the API key
+2. Download file: 
+```bash
+https://apidata.mos.ru/v1/features/1796?api_key={place_your_API_key_here}
+```
+
 ### How to run
 
 + Requrements: Python 3.5
@@ -15,7 +24,7 @@ the smallest and the nearest bar, from the received coordinates
 $ python bars.py <path to json-file>  # possibly requires call of python3 executive instead of just python
 
 ```
-#### Example input data
+#### Example input data:
 ```bash
 
 Input GPS coordinates longitube: 37.635709999610895
@@ -23,7 +32,7 @@ Input GPS coordinates latitube: 55.805575000158511
 
 ```
 
-#### Scripts response example
+#### Scripts response example:
 ```bash
 
 Biggest bar name : Спорт бар «Красная машина»
@@ -45,6 +54,7 @@ Closest bar phone : (495) 602-45-85
 + Runing in Windows is similar
 
 ---
-### Цели проекта
+### Project objectives
 
-Код создан в учебных целях. В рамках учебного курса по веб-разработке - [DEVMAN.org](https://devman.org)
+The code was created for educational purposes.
+In the framework of the training course on web development - [DEVMAN.org](https://devman.org)
