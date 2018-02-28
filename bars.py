@@ -15,7 +15,7 @@ def get_biggest_bar(json_content):
         json_content['features'],
         key=lambda x: x['properties']['Attributes']['SeatsCount']
     )
-    return biggest_bar
+    return [biggest_bar, 'Biggest']
 
 
 def get_smallest_bar(json_content):
@@ -23,7 +23,7 @@ def get_smallest_bar(json_content):
         json_content['features'],
         key=lambda x: x['properties']['Attributes']['SeatsCount']
     )
-    return smallest_bar
+    return [smallest_bar, 'Smallest']
 
 
 def distance_calculation(gps_user, gps_bar):
@@ -38,24 +38,27 @@ def get_closest_bar(json_content, gps_coordinates):
             x['geometry']['coordinates']
             )
         )
-    return closest_bar
+    return [closest_bar, 'Closest']
 
 
 def input_gps():
-    longitube = float(input('Input GPS coordinates longitube: '))
-    latitube = float(input('Input GPS coordinates latitube: '))
-    return [longitube, latitube]
+    try:
+        longitube = float(input('Input GPS coordinates longitube: '))
+        latitube = float(input('Input GPS coordinates latitube: '))
+        return [longitube, latitube]
+    except ValueError:
+        print('Error: GPS coordinates must be float type!')
 
 
-def pprint_information(bar_inform, pointer):
+def pprint_information(bar_inform):
     print(
         '\n{0} bar name : {1}\n'
         '{0} bar adress : {2}\n'
         '{0} bar phone : {3}\n'.format(
-            pointer,
-            bar_inform['properties']['Attributes']['Name'],
-            bar_inform['properties']['Attributes']['Address'],
-            bar_inform['properties']['Attributes']['PublicPhone'][0]['PublicPhone'],
+            bar_inform[1],
+            bar_inform[0]['properties']['Attributes']['Name'],
+            bar_inform[0]['properties']['Attributes']['Address'],
+            bar_inform[0]['properties']['Attributes']['PublicPhone'][0]['PublicPhone'],
             )
         )
 
@@ -65,14 +68,12 @@ if __name__ == '__main__':
         file_path = sys.argv[1]
         json_content = load_data(file_path)
         gps_coordinates = input_gps()
-        pprint_information(get_biggest_bar(json_content), 'Biggest')
-        pprint_information(get_smallest_bar(json_content), 'Smallest')
-        pprint_information(get_closest_bar(json_content, gps_coordinates), 'Closest')
+        pprint_information(get_biggest_bar(json_content))
+        pprint_information(get_smallest_bar(json_content))
+        pprint_information(get_closest_bar(json_content, gps_coordinates))
     except IndexError:
         print(' Error: No filename for reading.')
     except FileNotFoundError:
         print(' Error: file or path "{0}" not found'.format(file_path))
     except JSONDecodeError:
         print(' Error: this is not json-file.')
-    except ValueError:
-        print('Error: GPS coordinates must be float type!')
