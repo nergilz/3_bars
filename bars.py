@@ -68,19 +68,15 @@ def pprint_information(bar_inform, pointer):
 
 
 def main():
-    bar_inform = get_closest_bar(json_content, gps_coordinates)
-    pprint_information(bar_inform, 'Closest')
-    pprint_information(get_biggest_bar(json_content), 'Biggest')
-    pprint_information(get_smallest_bar(json_content), 'Smallest')
-
-
-if __name__ == '__main__':
     try:
         file_path = sys.argv[1]
         json_content = load_data(file_path)
         gps_coordinates = input_gps()
         if gps_coordinates is not None:
-            main()
+            bar_inform = get_closest_bar(json_content, gps_coordinates)
+            pprint_information(bar_inform, 'Closest')
+            pprint_information(get_biggest_bar(json_content), 'Biggest')
+            pprint_information(get_smallest_bar(json_content), 'Smallest')
         else:
             print(' Error: GPS coordinates must be input and float type! \n')
     except IndexError:
@@ -89,3 +85,7 @@ if __name__ == '__main__':
         print(' Error: file or path "{0}" not found!\n'.format(file_path))
     except JSONDecodeError:
         print(' Error: this is not json-file!\n')
+
+
+if __name__ == '__main__':
+    main()
