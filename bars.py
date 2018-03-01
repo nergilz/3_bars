@@ -27,7 +27,9 @@ def get_smallest_bar(json_content):
 
 
 def distance_calculation(gps_user, gps_bar):
-    return float(sqrt(((gps_user[0]-gps_bar[0])**2)+((gps_user[1]-gps_bar[1])**2)))
+    return float(sqrt
+        (((gps_user[0]-gps_bar[0])**2)+((gps_user[1]-gps_bar[1])**2))
+        )
 
 
 def get_closest_bar(json_content, gps_coordinates):
@@ -47,13 +49,14 @@ def input_gps():
         latitube = float(input('Input GPS coordinates latitube: '))
         return [longitube, latitube]
     except ValueError:
-        print(' Error: GPS coordinates must be float type!')
+        print(' Error: GPS coordinates must be input and float type! \n')
+        sys.exit()
 
 
 def pprint_information(bar_inform, pointer):
     print(
         '\n{0} bar name : {1}\n'
-        '{0} bar adress : {2}\n'
+        '{0} bar address : {2}\n'
         '{0} bar phone : {3}\n'.format(
             pointer,
             bar_inform['properties']['Attributes']['Name'],
@@ -72,10 +75,8 @@ if __name__ == '__main__':
         pprint_information(get_smallest_bar(json_content), 'Smallest')
         pprint_information(get_closest_bar(json_content, gps_coordinates), 'Closest')
     except IndexError:
-        print(' Error: No filename for reading!')
+        print(' Error: No filename for reading!\n')
     except FileNotFoundError:
-        print(' Error: file or path "{0}" not found!'.format(file_path))
+        print(' Error: file or path "{0}" not found!\n'.format(file_path))
     except JSONDecodeError:
-        print(' Error: this is not json-file!')
-    except TypeError:
-        print(' Error: Coordinates not be input!')
+        print(' Error: this is not json-file!\n')
