@@ -67,18 +67,22 @@ def pprint_information(bar_inform, pointer):
         )
 
 
+def main():
+    bar_inform = get_closest_bar(json_content, gps_coordinates)
+    pprint_information(bar_inform, 'Closest')
+    pprint_information(get_biggest_bar(json_content), 'Biggest')
+    pprint_information(get_smallest_bar(json_content), 'Smallest')
+
+
 if __name__ == '__main__':
     try:
         file_path = sys.argv[1]
         json_content = load_data(file_path)
         gps_coordinates = input_gps()
         if gps_coordinates is not None:
-            bar_inform = get_closest_bar(json_content, gps_coordinates)
-            pprint_information(bar_inform, 'Closest')
+            main()
         else:
             print(' Error: GPS coordinates must be input and float type! \n')
-        pprint_information(get_biggest_bar(json_content), 'Biggest')
-        pprint_information(get_smallest_bar(json_content), 'Smallest')
     except IndexError:
         print(' Error: No filename for reading!\n')
     except FileNotFoundError:
