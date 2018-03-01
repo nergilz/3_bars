@@ -73,10 +73,8 @@ if __name__ == '__main__':
         json_content = load_data(file_path)
         gps_coordinates = input_gps()
         if gps_coordinates is not None:
-            pprint_information(
-                get_closest_bar(
-                    json_content, gps_coordinates), 'Closest'
-            )
+            bar_inform = get_closest_bar(json_content, gps_coordinates)
+            pprint_information(bar_inform, 'Closest')
         else:
             print(' Error: GPS coordinates must be input and float type! \n')
         pprint_information(get_biggest_bar(json_content), 'Biggest')
