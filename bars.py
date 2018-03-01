@@ -49,8 +49,9 @@ def input_gps():
         latitube = float(input('Input GPS coordinates latitube: '))
         return [longitube, latitube]
     except ValueError:
-        print(' Error: GPS coordinates must be input and float type! \n')
-        sys.exit()
+        return None
+    except TypeError:
+        return None
 
 
 def pprint_information(bar_inform, pointer):
@@ -71,9 +72,15 @@ if __name__ == '__main__':
         file_path = sys.argv[1]
         json_content = load_data(file_path)
         gps_coordinates = input_gps()
+        if gps_coordinates is not None:
+            pprint_information(
+                get_closest_bar(
+                    json_content, gps_coordinates), 'Closest'
+            )
+        else:
+            print(' Error: GPS coordinates must be input and float type! \n')
         pprint_information(get_biggest_bar(json_content), 'Biggest')
         pprint_information(get_smallest_bar(json_content), 'Smallest')
-        pprint_information(get_closest_bar(json_content, gps_coordinates), 'Closest')
     except IndexError:
         print(' Error: No filename for reading!\n')
     except FileNotFoundError:
