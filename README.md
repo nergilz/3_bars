@@ -1,13 +1,13 @@
 ## Wich bar is closer
-
-This script processes the json-file with the data and finds the largest bar, 
-the smallest and the nearest bar, from the received coordinates
+---
+This script processes the json-file with the data and finds:
+the largest bar, the smallest and the nearest bar, from the GPS coordinates.
 ---
 
 ### How to use
 
 The list of Moscow bars can be downloaded in JSON format:
-1. register on the site and get the API key
+1. Get the API key.
 2. Download file: 
 ```bash
 https://apidata.mos.ru/v1/features/1796?api_key={place_your_API_key_here}
