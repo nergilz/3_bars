@@ -7,11 +7,12 @@ the largest bar, the smallest and the nearest bar, from the GPS coordinates.
 ### How to use
 
 The list of Moscow bars can be downloaded in JSON format:
-1. Get the API key.
+1. You make register on site and get the API key on site: [data.mos.ru](https://data.mos.ru/)
 2. Download file: 
 ```bash
 https://apidata.mos.ru/v1/features/1796?api_key={place_your_API_key_here}
 ```
+3. You make get the json-file on [github repository](https://github.com/nergilz/json_data_bars), download zip-file.
 
 ### How to run
 

@@ -6,21 +6,21 @@ from math import sqrt
 
 def load_data(file_path):
     with open(file_path, 'r') as file_handler:
-        json_data_bars = json.load(file_handler)
-    return json_data_bars['features']
+        list_data_bars = json.load(file_handler)
+    return list_data_bars['features']
 
 
-def get_biggest_bar(json_data_bars):
+def get_biggest_bar(list_data_bars):
     biggest_bar = max(
-        json_data_bars,
+        list_data_bars,
         key=lambda x: x['properties']['Attributes']['SeatsCount']
         )
     return biggest_bar
 
 
-def get_smallest_bar(json_data_bars):
+def get_smallest_bar(list_data_bars):
     smallest_bar = min(
-        json_data_bars,
+        list_data_bars,
         key=lambda x: x['properties']['Attributes']['SeatsCount']
         )
     return smallest_bar
@@ -32,9 +32,9 @@ def get_distance(gps_user, gps_bar):
         )
 
 
-def get_closest_bar(json_data_bars, gps_coordinates):
+def get_closest_bar(list_data_bars, gps_coordinates):
     closest_bar = min(
-        json_data_bars,
+        list_data_bars,
         key=lambda x: get_distance(gps_coordinates, x['geometry']['coordinates'])
         )
     return closest_bar
@@ -62,25 +62,25 @@ def pprint_information(bar_inform, pointer):
         )
 
 
-def main():
+def main(file_path):
+    list_data_bars = load_data(file_path)
+    gps_coordinates = get_user_gps()
+    if gps_coordinates is not None:
+        bar_inform = get_closest_bar(list_data_bars, gps_coordinates)
+        pprint_information(bar_inform, 'Closest')
+        pprint_information(get_biggest_bar(list_data_bars), 'Biggest')
+        pprint_information(get_smallest_bar(list_data_bars), 'Smallest')
+    else:
+        print(' Error: GPS coordinates must be input and float type! \n')
+
+
+if __name__ == '__main__':
     try:
         file_path = sys.argv[1]
-        json_data_bars = load_data(file_path)
-        gps_coordinates = get_user_gps()
-        if gps_coordinates is not None:
-            bar_inform = get_closest_bar(json_data_bars, gps_coordinates)
-            pprint_information(bar_inform, 'Closest')
-            pprint_information(get_biggest_bar(json_data_bars), 'Biggest')
-            pprint_information(get_smallest_bar(json_data_bars), 'Smallest')
-        else:
-            print(' Error: GPS coordinates must be input and float type! \n')
+        main(file_path)
     except IndexError:
         print(' Error: No filename for reading!\n')
     except FileNotFoundError:
         print(' Error: file or path "{0}" not found!\n'.format(file_path))
     except JSONDecodeError:
         print(' Error: this is not json-file!\n')
-
-
-if __name__ == '__main__':
-    main()
